@@ -4,7 +4,7 @@
   "description": "Steam saat ve kart farming web paneli",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/USERNAME/steam-farmer-panel.git"
+    "url": "https://github.com/execute1337x/steam-hourboost-and-farm-with-ui/"
   },
   "main": "server.js",
   "scripts": {
