@@ -1,0 +1,13 @@
+{
+  "accounts": [
+    {
+      "id": "ornek-hesap-id",
+      "username": "steam_kullanici_adi",
+      "password": "steam_sifresi",
+      "games": ["730"],
+      "sharedSecret": "",
+      "persona": 7,
+      "cardFarmEnabled": false
+    }
+  ]
+}

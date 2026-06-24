@@ -1,0 +1,28 @@
+{
+  "name": "steam-farmer-panel-by-execute",
+  "version": "1.0.1",
+  "description": "Steam saat ve kart farming web paneli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/USERNAME/steam-farmer-panel.git"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "debug": "node start-debug.js",
+    "install:quiet": "npm install --no-fund --no-audit"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "express-session": "^1.19.0",
+    "jsdom": "^26.1.0",
+    "steam-totp": "^2.1.2",
+    "steam-user": "^5.0.8",
+    "uuid": "^11.1.0"
+  }
+}

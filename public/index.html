@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steam Farmer Panel</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script>
+    fetch("/api/auth/me", { credentials: "same-origin" })
+      .then((r) => {
+        if (r.status === 401) {
+          window.location.replace("/login");
+          throw new Error("auth");
+        }
+        return r.json();
+      })
+      .then((d) => {
+        if (!d.authenticated) window.location.replace("/login");
+        else document.documentElement.classList.add("authed");
+      })
+      .catch((e) => {
+        if (e.message !== "auth") window.location.replace("/login");
+      });
+  </script>
+  <style>
+    html:not(.authed) body { visibility: hidden; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Steam Farmer Panel</h1>
+        <p>Çoklu hesap saat & kart farming paneli</p>
+      </div>
+      <div class="header-actions">
+        <div class="badge" id="last-update">Güncelleniyor...</div>
+        <button class="btn btn-secondary btn-sm" id="logout-btn">Çıkış</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="accounts">Accounts</button>
+      <button class="tab" data-tab="logs">Konsol</button>
+    </nav>
+
+    <section id="dashboard" class="panel active">
+      <div class="panel-header">
+        <h2>Hesap Durumu</h2>
+        <button class="btn btn-secondary" id="refresh-status">Yenile</button>
+      </div>
+      <div id="dashboard-cards" class="cards"></div>
+      <div id="dashboard-empty" class="empty" hidden>
+        Henüz hesap yok. <strong>Accounts</strong> sekmesinden hesap ekleyin.
+      </div>
+    </section>
+
+    <section id="accounts" class="panel">
+      <div class="panel-header">
+        <h2>Hesap Yönetimi</h2>
+        <button class="btn btn-secondary" id="add-account">+ Hesap Ekle</button>
+      </div>
+      <div id="account-rows" class="account-rows"></div>
+      <div class="toolbar">
+        <button class="btn btn-primary" id="save-accounts">Kaydet</button>
+      </div>
+      <p style="color: var(--muted); font-size: 0.85rem; margin-top: 12px;">
+        Oyunlar: Steam App ID'leri virgülle (ör. <code>730,440</code>). İsteğe bağlı <code>shared_secret</code> mobil authenticator için.
+      </p>
+    </section>
+
+    <section id="logs" class="panel">
+      <div class="panel-header">
+        <h2>Canli Konsol</h2>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" id="refresh-logs">Yenile</button>
+          <button class="btn btn-secondary btn-sm" id="clear-logs">Temizle</button>
+        </div>
+      </div>
+      <p class="log-hint">node server.js calistirdiginiz terminal ciktisi — canli</p>
+      <div id="log-list" class="log-list console-terminal"></div>
+      <div id="log-empty" class="empty" hidden>Bekleniyor...</div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
